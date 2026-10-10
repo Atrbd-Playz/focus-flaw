@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fdeede;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: rgba(254, 130, 66, .7);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="Full_clock_icon" data-name="Full clock icon">
+      <circle id="Ellipse_6" data-name="Ellipse 6" class="cls-1" cx="14.5" cy="14.5" r="14.5"/>
+      <g id="clock_icon" data-name="clock icon">
+        <path id="Vector_73" data-name="Vector 73" class="cls-2" d="M14,23c4.42,0,8-3.58,8-8s-3.58-8-8-8S6,10.58,6,15s3.58,8,8,8Z"/>
+        <path id="Vector_74" data-name="Vector 74" class="cls-2" d="M14,10.2v4.8l-3.2-1.6"/>
+      </g>
+    </g>
+  </g>
+</svg>

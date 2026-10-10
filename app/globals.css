@@ -1,3 +1,234 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   FocusFlaw — DESIGN TOKENS
+   Single source of truth for every color, font, size and radius in the app.
+   Source of truth: "FocusFlaw Home Page.svg" (Figma export, 1440x1024).
 
+   RULES
+   1. Components NEVER use raw hex values — they use the utilities generated
+      from these tokens (bg-surface, text-ink, border-line, font-clock ...).
+   2. The only place raw hexes are allowed is this file and the styleguide.
+   3. Card frame = 0.25px border @ 60% opacity of the muted grey + 16px radius
+      (matches Figma: stroke-width="0.25" stroke-opacity="0.6" stroke="#626368",
+      rx="16" / rx="15").
+   ========================================================================== */
+
+@theme {
+  /* --- Surface / canvas ---------------------------------------------------
+     The design uses 7 near-identical creams. They are consolidated here into
+     5 intentional roles so the palette stays legible and themable.          */
+  --color-canvas: #fcf9f4; /* page background                    */
+  --color-surface: #fdf9f4; /* default card surface               */
+  --color-surface-alt: #f8f6ef; /* secondary panels (chart, music)   */
+  --color-surface-raised: #fbfaf7; /* list rows, inset chips           */
+  --color-nav-active: #f9f0de; /* active sidebar pill               */
+  --color-canvas-aside: #fcf8f4; /* right-rail band                   */
+
+  /* --- Lines ---------------------------------------------------------------
+     One hairline token replaces the 5 competing greys found in the export.  */
+  --color-line: rgb(98 99 104 / 0.6); /* 0.25px card border = muted @ 60% */
+  --color-line-soft: rgb(98 99 104 / 0.35); /* dividers inside cards          */
+
+  /* --- Text ----------------------------------------------------------------*/
+  --color-ink: #272b2a; /* headings, primary numbers           */
+  --color-graphite: #41444c; /* secondary dark (music controls)     */
+  --color-muted: #626368; /* body copy, labels, icon strokes     */
+  --color-muted-subtle: #6c6c71; /* counters, meta                     */
+
+  /* --- Brand / accent ------------------------------------------------------*/
+  --color-accent: #fe8242; /* primary orange: progress, streak    */
+  --color-accent-strong: #f26e3c; /* pressed / hover orange             */
+  --color-accent-soft: #fdeede; /* peach icon-chip backgrounds         */
+  --color-amber: #feb65e; /* sun badge                          */
+  --color-chart-bar: #ffc090; /* weekly bars                        */
+
+  /* --- Semantic ------------------------------------------------------------*/
+  --color-success: #479975; /* completed checkbox                 */
+  --color-danger: #ee5f5f; /* errors / destructive               */
+  --color-leaf: #99b16c; /* logo + illustration greens          */
+  --color-leaf-dark: #5e8554;
+  --color-accent-70: rgb(254 130 66 / 0.7); /* icon-chip strokes, ring arc  */
+
+  /* --- Illustration palette -------------------------------------------------
+     ONLY the multi-colour artwork (logo, tomato, tea cup, plant) may use
+     these. They are never allowed on text, borders or UI chrome. Declared
+     so the SVG icon pipeline can tokenize them like everything else.       */
+  --color-illus-cream: #fcf7eb;
+  --color-illus-sand: #fcedda;
+  --color-illus-peach: #f8e0c2;
+  --color-illus-amber: #f8b06c;
+  --color-illus-gold: #fcc17e;
+  --color-illus-honey: #fed29a;
+  --color-illus-moss: #70975d;
+  --color-illus-olive: #898457;
+  --color-illus-sprout: #7ea864;
+  --color-illus-stem: #60925a;
+  --color-illus-flame: #f99840;
+  --color-illus-tomato: #ff624d;
+  --color-illus-blush: #eeb6b6;
+
+  /* --- Typography ----------------------------------------------------------
+     9 families loaded via next/font (see app/layout.tsx), each with a role. */
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-brand: var(--font-rosario), var(--font-roboto), sans-serif;
+  --font-display: var(--font-sansation), var(--font-roboto), sans-serif;
+  --font-greeting: var(--font-rocknroll-one), var(--font-roboto), sans-serif;
+  --font-kbd: var(--font-salsa), var(--font-roboto), sans-serif;
+  --font-micro: var(--font-roboto-condensed), var(--font-roboto), sans-serif;
+  --font-clock: var(--font-lisu-bosa), var(--font-roboto), serif;
+  --font-quote: var(--font-lily-script-one), var(--font-roboto), cursive;
+  --font-chart: var(--font-baloo-da-2), var(--font-roboto), sans-serif;
+
+  /* --- Type scale ----------------------------------------------------------
+     Tuned to the sizes actually used in the Figma file (10/11/13/15/16/20/22/
+     32/64) rather than Tailwind's defaults.                                 */
+  --text-micro: 0.625rem; /* 10px  — micro labels, chart axis    */
+  --text-tiny: 0.6875rem; /* 11px  — row meta, action labels     */
+  --text-sm: 0.8125rem; /* 13px  — nav labels, subtitles        */
+  --text-base: 0.9375rem; /* 15px  — task titles                  */
+  --text-md: 1rem; /* 16px  — card headings                */
+  --text-lg: 1.25rem; /* 20px  — greeting                     */
+  --text-xl: 1.375rem; /* 22px  — stat values, brand           */
+  --text-2xl: 2rem; /* 32px  — big stat                     */
+  --text-clock: 4rem; /* 64px  — timer digits                 */
+
+  /* --- Radius --------------------------------------------------------------
+     Figma rx values in the export: 15, 15.25, 15.875, 16, 16.125.           */
+  --radius-card: 16px; /* every outer card                     */
+  --radius-panel: 15px; /* inset panels / hero                  */
+  --radius-pill: 999px; /* badges, pills, round controls        */
+
+  /* --- Elevation -----------------------------------------------------------
+     The design is deliberately flat: no shadows anywhere, only hairlines.
+     --shadow-hairline exists for controls that cannot take a border.        */
+  --shadow-hairline: 0 0 0 0.25px rgb(98 99 104 / 0.6);
+  --shadow-none: none;
+}
+
+/* ============================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  html {
+    /* Breakpoints are content-driven (see docs/STYLEGUIDE.md § Layout).
+       Prevents horizontal scroll caused by grid children holding long text. */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Sticky top bar must not cover anchored targets. */
+  :target {
+    scroll-margin-block-start: 5rem;
+  }
+
+  * {
+    border-color: var(--color-line-soft);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-panel);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ============================================================================
+   COMPONENT UTILITIES
+   Shared frame rules so no component has to re-declare border + radius.
+   ========================================================================== */
+
+/* The card frame: Figma stroke-width 0.25 @ 60% muted, radius 16. */
+@utility card-frame {
+  border-radius: var(--radius-card);
+  border: 0.25px solid var(--color-line);
+  background-color: var(--color-surface);
+}
+
+/* Same frame for the darker secondary panels (chart / music / nav). */
+@utility card-frame-alt {
+  border-radius: var(--radius-card);
+  border: 0.25px solid var(--color-line);
+  background-color: var(--color-surface-alt);
+}
+
+/* Hairline that never affects layout — used on controls sitting on imagery. */
+@utility hairline {
+  box-shadow: var(--shadow-hairline);
+}
+
+/* Every list/action row shares one recipe (raised surface + soft divider). */
+@utility row-frame {
+  border-radius: var(--radius-panel);
+  background-color: var(--color-surface-raised);
+  border: 0.25px solid var(--color-line-soft);
+}
+
+/* ============================================================================
+   RANGE INPUT (.ff-range)
+   Seek + volume sliders in FocusMusic. The native thumb is restyled with
+   tokens so it matches the flat hairline aesthetic instead of the OS widget.
+   ========================================================================== */
+.ff-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ff-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-line-soft);
+}
+
+.ff-range::-moz-range-track {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-line-soft);
+}
+
+.ff-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -3px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-graphite);
+  border: 2px solid var(--color-surface);
+}
+
+.ff-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-graphite);
+  border: 2px solid var(--color-surface);
+}
+
+.ff-range:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: var(--radius-pill);
+}

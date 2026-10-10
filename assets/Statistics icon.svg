@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #626368;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="Statistics_icon" data-name="Statistics icon">
+      <path id="Vector_35" data-name="Vector 35" class="cls-1" d="M.5,.5V13.83c0,.44,.18,.87,.49,1.18,.31,.31,.74,.49,1.18,.49H15.5"/>
+      <path id="Vector_36" data-name="Vector 36" class="cls-1" d="M13,12.17V5.5"/>
+      <path id="Vector_37" data-name="Vector 37" class="cls-1" d="M8.83,12.17V2.17"/>
+      <path id="Vector_38" data-name="Vector 38" class="cls-1" d="M4.67,12.17v-2.5"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.5 13.5">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #626368;
+        stroke: #626368;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: .5px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="ellipse">
+      <path id="Vector_85" data-name="Vector 85" class="cls-1" d="M2.25,6.75c0-.45-.45-.81-1-.81s-1,.36-1,.81,.45,.81,1,.81,1-.36,1-.81Z"/>
+      <path id="Vector_86" data-name="Vector 86" class="cls-1" d="M2.25,1.06c0-.45-.45-.81-1-.81S.25,.61,.25,1.06s.45,.81,1,.81,1-.36,1-.81Z"/>
+      <path id="Vector_87" data-name="Vector 87" class="cls-1" d="M2.25,12.44c0-.45-.45-.81-1-.81s-1,.36-1,.81,.45,.81,1,.81,1-.36,1-.81Z"/>
+    </g>
+  </g>
+</svg>

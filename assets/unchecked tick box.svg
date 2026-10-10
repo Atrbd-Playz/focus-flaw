@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #fbfaf7;
+        stroke-width: 2px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-2 {
+        stroke: #626368;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="unchecked_tick_box" data-name="unchecked tick box">
+      <path id="blank_tick_box_2" data-name="blank tick box_2" class="cls-2" d="M2.56,.5H20.44c1.14,0,2.06,.92,2.06,2.06V20.44c0,1.14-.92,2.06-2.06,2.06H2.56c-1.14,0-2.06-.92-2.06-2.06V2.56C.5,1.42,1.42,.5,2.56,.5Z"/>
+      <path id="tick_2" data-name="tick 2" class="cls-1" d="M16.61,7.67l-7.03,7.03-3.19-3.19"/>
+    </g>
+  </g>
+</svg>

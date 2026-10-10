@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #fbfaf7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #479975;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="tick_box_2" data-name="tick box_2">
+      <path id="blank_tick_box_3" data-name="blank tick box_3" class="cls-2" d="M20.44,0H2.56C1.14,0,0,1.14,0,2.56V20.44c0,1.41,1.14,2.56,2.56,2.56H20.44c1.41,0,2.56-1.14,2.56-2.56V2.56c0-1.41-1.14-2.56-2.56-2.56Z"/>
+      <path id="tick_3" data-name="tick 3" class="cls-1" d="M16.61,7.67l-7.03,7.03-3.19-3.19"/>
+    </g>
+  </g>
+</svg>

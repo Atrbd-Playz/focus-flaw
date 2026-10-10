@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #626368;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="note_vector" data-name="note vector">
+      <path id="Vector_83" data-name="Vector 83" class="cls-1" d="M7.6,1.29H2.08c-.42,0-.82,.17-1.12,.46-.3,.3-.46,.7-.46,1.12V13.92c0,.42,.17,.82,.46,1.12,.3,.3,.7,.46,1.12,.46H13.13c.42,0,.82-.17,1.12-.46,.3-.3,.46-.7,.46-1.12v-5.53"/>
+      <path id="Vector_84" data-name="Vector 84" class="cls-1" d="M12.64,.99c.31-.31,.74-.49,1.18-.49s.87,.18,1.18,.49c.31,.32,.49,.74,.49,1.19s-.18,.87-.49,1.18l-7.12,7.12c-.19,.19-.42,.32-.67,.4l-2.27,.66c-.07,.02-.14,.02-.21,0-.07-.02-.13-.05-.18-.1-.05-.05-.09-.11-.1-.18-.02-.07-.02-.14,0-.21l.66-2.27c.07-.25,.21-.49,.4-.67L12.64,.99Z"/>
+    </g>
+  </g>
+</svg>

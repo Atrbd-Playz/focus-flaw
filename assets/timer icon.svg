@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.67 19.33">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #626368;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="timer_icon" data-name="timer icon">
+      <path id="Vector_20" data-name="Vector 20" class="cls-1" d="M6,.5h3.67"/>
+      <path id="Vector_21" data-name="Vector 21" class="cls-1" d="M7.83,11.5l2.75-2.75"/>
+      <path id="Vector_22" data-name="Vector 22" class="cls-1" d="M7.83,18.83c4.05,0,7.33-3.28,7.33-7.33s-3.28-7.33-7.33-7.33S.5,7.45,.5,11.5s3.28,7.33,7.33,7.33Z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 17">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #626368;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="Note_icon" data-name="Note icon">
+      <path id="Vector_12" data-name="Vector 12" class="cls-1" d="M12.06,.5H1.94c-.8,0-1.44,.8-1.44,1.78V14.72c0,.98,.65,1.78,1.44,1.78H12.06c.8,0,1.44-.8,1.44-1.78V2.28c0-.98-.65-1.78-1.44-1.78Z"/>
+      <path id="Vector_13" data-name="Vector 13" class="cls-1" d="M3.39,4.94h5.78"/>
+      <path id="Vector_14" data-name="Vector 14" class="cls-1" d="M3.39,8.5h7.22"/>
+      <path id="Vector_15" data-name="Vector 15" class="cls-1" d="M3.39,12.06H7.72"/>
+    </g>
+  </g>
+</svg>

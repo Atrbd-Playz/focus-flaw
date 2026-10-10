@@ -1,0 +1,6 @@
+{
+  // Tailwind CSS v4 is configured with CSS-first at-rules (@theme, @utility,
+  // @source, …). VS Code's built-in CSS validator does not know them and flags
+  // them as "Unknown at rule" warnings in the Problems panel.
+  "css.lint.unknownAtRules": "ignore"
+}

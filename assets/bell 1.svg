@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 22">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #626368;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="bell_1" data-name="bell 1">
+      <path id="Vector_26" data-name="Vector 26" class="cls-1" d="M8.27,20c.18,.3,.43,.56,.73,.73,.3,.18,.65,.27,1,.27s.7-.09,1-.27c.3-.18,.56-.43,.73-.73"/>
+      <path id="Vector_27" data-name="Vector 27" class="cls-1" d="M1.26,14.33c-.13,.14-.22,.32-.25,.51-.03,.19,0,.39,.07,.56,.08,.18,.21,.33,.37,.43,.16,.11,.35,.16,.55,.16H18c.19,0,.38-.06,.55-.16,.16-.11,.29-.26,.37-.43,.08-.18,.1-.37,.07-.56s-.12-.37-.25-.51c-1.33-1.37-2.74-2.83-2.74-7.33,0-1.59-.63-3.12-1.76-4.24-1.13-1.13-2.65-1.76-4.24-1.76s-3.12,.63-4.24,1.76c-1.12,1.13-1.76,2.65-1.76,4.24,0,4.5-1.41,5.96-2.74,7.33Z"/>
+    </g>
+  </g>
+</svg>

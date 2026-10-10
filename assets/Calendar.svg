@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.25 16.04">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #626368;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="Calendar">
+      <path id="Vector_16" data-name="Vector 16" class="cls-1" d="M4.46,.5V2.88"/>
+      <path id="Vector_17" data-name="Vector 17" class="cls-1" d="M10.79,.5V2.88"/>
+      <path id="Vector_18" data-name="Vector 18" class="cls-1" d="M13.17,1.29H2.08c-.87,0-1.58,.71-1.58,1.58V13.96c0,.88,.71,1.58,1.58,1.58H13.17c.87,0,1.58-.71,1.58-1.58V2.88c0-.87-.71-1.58-1.58-1.58Z"/>
+      <path id="Vector_19" data-name="Vector 19" class="cls-1" d="M.5,6.04H14.75"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.69 21.67">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #626368;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="Setting_fill_Icon" data-name="Setting fill Icon">
+      <path id="Vector_28" data-name="Vector 28" class="cls-1" d="M10.35,2.17C5.56,2.17,1.68,6.05,1.68,10.83s3.88,8.67,8.67,8.67,8.67-3.88,8.67-8.67S15.13,2.17,10.35,2.17Zm0,13c-2.39,0-4.33-1.94-4.33-4.33s1.94-4.33,4.33-4.33,4.33,1.94,4.33,4.33-1.94,4.33-4.33,4.33Z"/>
+      <path id="Vector_29" data-name="Vector 29" class="cls-1" d="M13.51,3.25l-.46-2.37c-.1-.51-.55-.88-1.06-.88h-3.27c-.52,0-.96,.37-1.06,.88l-.46,2.37h6.32Z"/>
+      <path id="Vector_30" data-name="Vector 30" class="cls-1" d="M7.18,18.42l.46,2.37c.1,.51,.55,.88,1.06,.88h3.27c.52,0,.96-.37,1.06-.88l.46-2.37H7.18Z"/>
+      <path id="Vector_31" data-name="Vector 31" class="cls-1" d="M5.36,4.31l-2.29-.79c-.49-.17-1.03,.03-1.29,.48L.15,6.83c-.26,.45-.16,1.02,.23,1.36l1.82,1.59,3.16-5.47Z"/>
+      <path id="Vector_32" data-name="Vector 32" class="cls-1" d="M15.33,17.36l2.29,.79c.49,.17,1.03-.03,1.29-.48l1.64-2.83c.26-.45,.16-1.02-.23-1.36l-1.82-1.59-3.16,5.47Z"/>
+      <path id="Vector_33" data-name="Vector 33" class="cls-1" d="M2.2,11.89l-1.82,1.59c-.39,.34-.49,.91-.23,1.36l1.64,2.83c.26,.45,.8,.65,1.29,.48l2.29-.79-3.16-5.47Z"/>
+      <path id="Vector_34" data-name="Vector 34" class="cls-1" d="M18.49,9.78l1.82-1.59c.39-.34,.49-.91,.23-1.36l-1.64-2.83c-.26-.45-.8-.65-1.29-.48l-2.29,.79,3.16,5.47Z"/>
+    </g>
+  </g>
+</svg>

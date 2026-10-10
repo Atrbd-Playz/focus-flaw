@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.5 15.25">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #626368;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g id="Home_icon" data-name="Home icon">
+      <path id="Vector_8" data-name="Vector 8" class="cls-1" d="M9.5,14.75v-6c0-.2-.08-.39-.22-.53-.14-.14-.33-.22-.53-.22h-3c-.2,0-.39,.08-.53,.22-.14,.14-.22,.33-.22,.53v6"/>
+      <path id="Vector_9" data-name="Vector 9" class="cls-1" d="M9.57,14.75h2.93c.4,0,.78-.16,1.06-.44,.28-.28,.44-.66,.44-1.06V6.5c0-.22-.05-.43-.14-.63-.09-.2-.23-.37-.39-.51L8.22,.85c-.27-.23-.61-.35-.97-.35s-.7,.13-.97,.35L1.03,5.35c-.17,.14-.3,.32-.39,.51-.09,.2-.14,.41-.14,.63v6.75c0,.4,.16,.78,.44,1.06,.28,.28,.66,.44,1.06,.44h2.93"/>
+    </g>
+  </g>
+</svg>
