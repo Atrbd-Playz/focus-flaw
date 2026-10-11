@@ -27,10 +27,16 @@ export function LeftNav({
   return (
     <nav
       aria-label="Primary"
-      className={cn("card-frame flex w-full flex-col gap-1 self-start p-2 lg:p-4", className)}
+      className={cn("flex w-full flex-col gap-1 self-start pt-2 pl-1", className)}
     >
       {navItems.map((item) => (
-        <NavItemLink key={item.id} item={item} active={item.id === activeId} layout="rail" />
+        <NavItemLink
+          key={item.id}
+          item={item}
+          active={item.id === activeId}
+          layout="rail"
+          className="my-1"
+        />
       ))}
     </nav>
   );

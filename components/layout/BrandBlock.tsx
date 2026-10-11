@@ -15,18 +15,16 @@ import { cn } from "@/lib/cn";
 export function BrandBlock({ className }: { className?: string }) {
   return (
     <a
-      href="#top"
+      href=""
       aria-label={`${brand.name} home`}
-      className={cn("flex min-w-0 items-center gap-3", className)}
+      className={cn("flex min-w-0 items-center gap-1 lg:gap-3", className)}
     >
-      <FocusFlawLogo className="size-[38px] shrink-0" />
+      <FocusFlawLogo className="ff-brand-logo size-9 md:size-10 shrink-0 artboard:w-[26.62px] artboard:h-9" />
       <span className="flex min-w-0 flex-col">
-        <span className="truncate font-brand text-xl font-semibold leading-tight text-ink">
+        <span className="truncate font-brand text-md md:text-lg font-semibold leading-tight text-ink">
           {brand.name}
         </span>
-        <span className="mt-0.5 truncate font-micro text-sm text-muted">
-          {brand.tagline}
-        </span>
+        <span className="mt-0.5 truncate hidden lg:inline text-micro md:text-xs lg:text-sm text-muted">{brand.tagline}</span>
       </span>
     </a>
   );

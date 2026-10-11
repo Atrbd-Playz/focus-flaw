@@ -256,16 +256,68 @@ Range inputs (seek / volume) are styled by the `.ff-range` class in `globals.css
 
 ## 9. Responsive behaviour
 
-Breakpoints are **content-driven**. Each one is the width at which the 1440px design stops fitting, then reflows. See `docs/ARCHITECTURE.md` for the full rationale.
+The Figma file is a **fixed 1440 × 1024 frame**. It was not drawn as a fluid
+layout, so the page is not one either: there are exactly two modes.
+
+### 9.1 Artboard mode — `≥ 1100px`
+
+`.ff-frame` is laid out at **exactly 1440 × 1024** — every card is the size the
+design drew it — and the whole frame is then scaled to the viewport:
+
+```css
+.ff-shell { container-type: inline-size; }
+.ff-frame { zoom: calc(100cqw / 1440px); }
+```
+
+Everything that differs from a normal fluid layout lives in one **unlayered**
+block at the end of `app/globals.css`:
+
+```css
+@media (min-width: 1100px) {
+  .ff-hero { width: 820px; height: 438px; }
+  .ff-rail { width: 370px; }
+  /* …one rule per measured measurement… */
+}
+```
+
+It is deliberately **unlayered**: Tailwind v4 emits utilities inside
+`@layer utilities`, and an unlayered rule beats a layered one whatever its
+specificity. That is what lets a single DOM tree carry both modes — no
+duplicate markup, no second accessibility tree, no `isDesktop` branch in JS.
+
+Three decisions worth recording:
+
+| Decision | Why |
+| --- | --- |
+| `zoom`, not `transform: scale()` | `zoom` is **layout-aware**. It reflows the box model, so `position: sticky`, `position: fixed` and `getBoundingClientRect()` keep working, and text stays selectable at the scaled size. A transform is paint-only: it would leave a phantom 1440px-wide layout box and blurry text. |
+| `100cqw`, not `100vw` | `100vw` includes the vertical scrollbar gutter, so `calc(100vw / 1440px)` overshoots by ~15px and the page gains a horizontal scrollbar. `container-type: inline-size` on the shell makes `100cqw` resolve to the shell's content box — the visible width. Verified at 1920 / 1600 / 1440 / 1366 / 1310 / 1280 / 1100: `scrollWidth === clientWidth` at every one. |
+| `BottomNav` sits **outside** `.ff-shell` | `container-type` implies `contain: layout`, which makes the shell a containing block for `position: fixed` descendants. The mobile bottom bar is the one fixed element in the app, so `AppShell` renders it as a sibling of the shell rather than inside it. |
+
+The measurements are transcribed from the export, not eyeballed. Some that
+would otherwise be "cleaned up" incorrectly:
+
+- The weekly chart has **four tick labels but only two rules** — a top rule at
+  the highest tick and a baseline. The two intermediate ticks are labels only.
+- The hero photo is anchored to the **top** of its panel, not centred: the
+  source is 820 × 467 and the export simply lets the bottom 29px fall outside.
+- The rail's task heading is the one card title drawn at **20px**; every other
+  card heading is 16px.
+- The countdown arc sweeps **36.6%** of the circle with a butt cap.
+
+### 9.2 Fluid mode — `< 1100px`
+
+Below the breakpoint the frame goes fluid and the artboard rules switch off.
+Breakpoints stay **content-driven** — each is a width where the layout stops
+fitting.
 
 | Range | Sidebar | Main | Right rail | Brand lockup |
 | --- | --- | --- | --- | --- |
 | `< 768px` | hidden → **fixed bottom nav** | single column, 2-up cards become 1-up | stacked below main | inline in header |
 | `768–1023px` | 76px **icon-only** rail | full width | stacked below main | inline in header |
-| `1024–1279px` | 216px labelled rail | full width | stacked below main | **top of the rail** |
-| `≥ 1280px` | 216px labelled rail | `minmax(0,1fr)` | 360px sticky column | top of the rail |
+| `1024–1099px` | 216px labelled rail | full width | stacked below main | **top of the rail** |
+| `≥ 1100px` | **artboard mode** — the 1440 × 1024 frame, scaled to fit | | | |
 
-### 9.1 What hides, and why
+### 9.3 What hides, and why
 
 | Element | Hidden below | Reason |
 | --- | --- | --- |
@@ -278,6 +330,20 @@ Breakpoints are **content-driven**. Each one is the width at which the 1440px de
 
 Nothing that carries information is ever removed — only decoration.
 
+### 9.4 What "pixel perfect" means here
+
+The hero photo and the album art are marked `unoptimized`. The optimiser
+re-encodes to lossy WebP at a device-appropriate size, which measurably
+degrades the match against the export (hero region: 5.01 → 3.63 mean |ΔRGB|).
+Serving the originals costs bytes; on this page it buys an exact photograph.
+
+Against a 1440 × 1024 rasterisation of the export the whole page differs by a
+mean of **≈ 3.6 / 255** per channel. Every card box, label and icon lands
+within 1–2px. The residue is not geometry — it is that the export was
+rasterised by a different engine (grayscale antialiasing) than Chrome
+(subpixel antialiasing), plus one resampling step on the photographs. Both are
+properties of the renderer, not of the layout.
+
 ---
 
 ## 10. Bugs fixed from the Figma export
@@ -289,7 +355,7 @@ Nothing that carries information is ever removed — only decoration.
 | 3 | Tasks counter read **2/7** above a list of 5 | Derived from the data: `done/tasks.length` |
 | 4 | "Statistics" component was misspelt `Satistics.tsx` | Renamed; the card is now `FocusMusic` |
 | 5 | Brand spelled three ways ("Focus Flaw", "FocusFlaw", "FocusFlaw.") | Single constant: `brand.name` in `lib/data.ts` |
-| 6 | Hero photo was stretched to a fixed 818×467 box | `object-cover` — it crops instead of distorting |
+| 6 | Hero photo was stretched to a fixed 818×467 box | `object-cover` anchored to the top — it crops instead of distorting, and crops the same 29px the export did |
 | 7 | Album art overflowed the music card | `overflow-hidden` + `object-cover` on a sized square |
 | 8 | ~150 exploded inline SVG icon fragments duplicated per row | 34 generated components, one import each |
 

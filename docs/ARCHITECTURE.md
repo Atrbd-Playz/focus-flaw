@@ -44,6 +44,9 @@ components/
                       BottomNav, NavItemLink
   dashboard/          TimerHero, TodaysProgress, QuickActions,
                       TasksCard, WeeklyOverview, FocusMusic
+    timer/            TimerHero's parts: TimerBadge, TimerQuote,
+                      TransportControls, ModeSelector
+    tasks/            TaskRow — one task row, extracted from TasksCard
 public/               photographic assets (hero backdrop, album art)
 docs/                 STYLEGUIDE.md · ARCHITECTURE.md
 ```
@@ -129,11 +132,11 @@ Each card is one section of the Figma frame, prop-driven and token-only. They kn
 
 | Card | Notes |
 | --- | --- |
-| `TimerHero` | The only card with a photographic backdrop (`object-cover`, not stretched) |
-| `TodaysProgress` | Ring + two stat tiles |
+| `TimerHero` | The only card with a photographic backdrop (`object-cover` anchored top, not stretched). Composes four parts from `dashboard/timer/`; it is the app's one `"use client"` leaf, because the mode selector holds selection state |
+| `TodaysProgress` | Ring + two stat tiles. The tile is a `max-content` grid track, centred in its cell, with value and label sharing a left edge |
 | `QuickActions` | 4 `ActionRow`s |
-| `TasksCard` | Data-driven rows; the counter is `done/tasks.length`, not a literal |
-| `WeeklyOverview` | Bars are `value / max * 100%` — swapping the data updates the chart |
+| `TasksCard` | Data-driven rows via `dashboard/tasks/TaskRow`; the counter is `done/tasks.length`, not a literal |
+| `WeeklyOverview` | Bars are `value / max * 100%` — swapping the data updates the chart. Two rules only: a top gridline and a baseline |
 | `FocusMusic` | Restyled range inputs (`.ff-range`) |
 
 ---
@@ -186,16 +189,32 @@ Researched via the UI-skills registry (`pbakaus/adapt`, `jakubkrehel/better-layo
 - **`minmax(0, 1fr)` tracks and `min-width: 0` flex children** — long task titles scroll inside their card instead of widening the page.
 - **Progressive disclosure** — the `Ctrl + K` hint and the hero quote are affordances/decoration, so they go first.
 
-### 7.1 The four steps
+### 7.1 Two modes, one DOM tree
+
+The Figma file is a **fixed 1440 × 1024 frame**, not a fluid design. Reflowing
+it — which is what the app originally did — produced something that looked
+nothing like the export at the sizes people actually browse at. So the page
+has exactly two modes:
 
 | Range | Grid | Sidebar | Right rail |
 | --- | --- | --- | --- |
 | `< 768px` | 1 column | hidden → **fixed bottom nav** | stacked below main |
 | `768–1023px` | `76px 1fr` | icon-only rail | stacked below main |
-| `1024–1279px` | `216px 1fr` | labelled rail, carries the brand | stacked below main |
-| `≥ 1280px` | `216px minmax(0,1fr) 360px` | labelled rail | 360px sticky column |
+| `1024–1099px` | `216px 1fr` | labelled rail, carries the brand | stacked below main |
+| `≥ 1100px` | **artboard mode** — 1440 × 1024, scaled to fit | | |
 
-Why the rail only appears at **1280px**: at 1024, `216 + 360 + gaps` leaves ~430px for the main column, against the design's 818px — the timer ring and the mode selector would both break. Below that width the rail's three cards reflow under the main content, which is a graceful degradation rather than a squeeze.
+Above 1100px `.ff-frame` keeps the design's exact pixel geometry and is scaled
+to the viewport with `zoom: calc(100cqw / 1440px)` (see STYLEGUIDE §9 for why
+`zoom` and `100cqw` rather than `transform` and `100vw`). The artboard
+coordinates live in one unlayered `@media (min-width: 1100px)` block in
+`app/globals.css`, which beats Tailwind's layered utilities — so there is no
+second DOM, no `isDesktop` prop and no duplicated accessibility tree.
+
+Why the rail only appears at **1280px** in fluid mode: at 1024,
+`216 + 360 + gaps` leaves ~430px for the main column, against the design's
+818px — the timer ring and the mode selector would both break. Below that
+width the rail's three cards reflow under the main content, which is a
+graceful degradation rather than a squeeze.
 
 ### 7.2 Brand placement
 

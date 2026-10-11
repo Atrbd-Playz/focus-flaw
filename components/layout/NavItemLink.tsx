@@ -38,10 +38,13 @@ export function NavItemLink({
   item,
   active,
   layout,
+  className,
 }: {
   item: NavItem;
   active: boolean;
   layout: "rail" | "bar";
+  /** Hook for the artboard-mode geometry (see globals.css `.ff-nav-link`). */
+  className?: string;
 }) {
   const Icon = ICONS[item.id];
   const state = active
@@ -60,8 +63,8 @@ export function NavItemLink({
           state,
         )}
       >
-        <Icon className="size-5 shrink-0" />
-        <span className="max-w-full truncate text-micro">{item.label}</span>
+        <Icon className="size-4 md:size-5 lg:size-6 shrink-0" />
+        <span className="max-w-full hidden lg:inline truncate text-[14px]">{item.label}</span>
       </a>
     );
   }
@@ -77,6 +80,8 @@ export function NavItemLink({
         "focus-visible:outline-2 focus-visible:outline-accent",
         "justify-center px-0 lg:w-full lg:justify-start lg:px-3",
         state,
+        "artboard:h-[41px] artboard:flex-none artboard:justify-start artboard:py-0 artboard:pr-0 artboard:pl-[20px] artboard:gap-[18px] artboard:rounded-card",
+        className,
       )}
     >
       <Icon className="size-4 shrink-0" />

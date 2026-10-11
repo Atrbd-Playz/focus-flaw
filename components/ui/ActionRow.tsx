@@ -34,7 +34,11 @@ export function ActionRow({
       )}
       {...rest}
     >
-      {icon ? <span className="grid size-5 shrink-0 place-items-center text-muted">{icon}</span> : null}
+      {icon ? (
+        <span className="grid size-5 shrink-0 place-items-center text-muted artboard:size-[16px]">
+          {icon}
+        </span>
+      ) : null}
       <span className="min-w-0 flex-1">
         <span className="block truncate text-tiny font-medium text-muted">{label}</span>
         {meta ? <span className="block truncate text-tiny text-muted-subtle">{meta}</span> : null}

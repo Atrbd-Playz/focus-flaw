@@ -19,7 +19,7 @@ export default function Home() {
       main={
         <>
           <TimerHero />
-          <div className="grid min-w-0 gap-3 sm:gap-4 md:grid-cols-2">
+          <div className="ff-progress-row grid min-w-0 gap-3 sm:gap-4 md:grid-cols-2 artboard:flex artboard:gap-[18px] artboard:mt-[17px]">
             <TodaysProgress />
             <QuickActions />
           </div>
