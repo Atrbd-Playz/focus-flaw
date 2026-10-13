@@ -1,25 +1,6 @@
-import {
-  CalendarIcon,
-  HomeIcon,
-  NoteIcon,
-  SettingsIcon,
-  StatisticsIcon,
-  TimerIcon,
-  CheckboxOutlineSmallIcon,
-} from "@/components/icons";
-import type { NavItem, NavItemId } from "@/lib/types";
+import { navIcons } from "@/components/layout/nav-icons";
+import type { NavItem } from "@/lib/types";
 import { cn } from "@/lib/cn";
-
-/** Which generated icon each nav entry uses. */
-const ICONS: Record<NavItemId, (p: { className?: string }) => React.ReactElement> = {
-  home: HomeIcon,
-  pomodoro: TimerIcon,
-  tasks: CheckboxOutlineSmallIcon,
-  calendar: CalendarIcon,
-  statistics: StatisticsIcon,
-  notes: NoteIcon,
-  settings: SettingsIcon,
-};
 
 /**
  * Navigation entry — one component, two presentations:
@@ -46,7 +27,7 @@ export function NavItemLink({
   /** Hook for the artboard-mode geometry (see globals.css `.ff-nav-link`). */
   className?: string;
 }) {
-  const Icon = ICONS[item.id];
+  const { icon: Icon, props: iconProps } = navIcons[item.id];
   const state = active
     ? "bg-nav-active text-ink"
     : "text-muted hover:bg-surface-raised hover:text-ink";
@@ -63,7 +44,7 @@ export function NavItemLink({
           state,
         )}
       >
-        <Icon className="size-4 md:size-5 lg:size-6 shrink-0" />
+        <Icon {...iconProps} strokeWidth={1} size={20} className={cn("md:size-5 lg:size-6 shrink-0", iconProps?.className)} />
         <span className="max-w-full hidden lg:inline truncate text-[14px]">{item.label}</span>
       </a>
     );
@@ -84,7 +65,7 @@ export function NavItemLink({
         className,
       )}
     >
-      <Icon className="size-4 shrink-0" />
+      <Icon {...iconProps} strokeWidth={1} size={20} className={cn("shrink-0", iconProps?.className)} />
       {/* Visible only where the sidebar is wide enough to carry labels. */}
       <span className="hidden lg:inline lg:truncate">{item.label}</span>
     </a>

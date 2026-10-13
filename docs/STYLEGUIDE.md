@@ -358,6 +358,7 @@ properties of the renderer, not of the layout.
 | 6 | Hero photo was stretched to a fixed 818×467 box | `object-cover` anchored to the top — it crops instead of distorting, and crops the same 29px the export did |
 | 7 | Album art overflowed the music card | `overflow-hidden` + `object-cover` on a sized square |
 | 8 | ~150 exploded inline SVG icon fragments duplicated per row | 34 generated components, one import each |
+| 9 | `timer icon.svg` was replaced by a **fill-based** icon that paints via `fill="#6c6c71"` on the root `<svg>`, with no paint on its own shapes. The generator discards the root tag and hardcodes `fill="none"`, so `TimerIcon` painted nothing at all — invisible. It failed *silently*: `#6c6c71` is untokenized, but the fill was dropped before tokenization, so the "UNMAPPED COLORS" warning never fired | The generator resolves the root's own `fill` (`rootFill`) instead of assuming `none`, tokenizing it like any other color; `#6c6c71` is mapped to `currentColor` so the icon inherits the surrounding text color, as every other monochrome icon does |
 
 ---
 
