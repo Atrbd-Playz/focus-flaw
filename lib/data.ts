@@ -63,10 +63,11 @@ export const timer = {
   quote: "“ Focus is a skill that you can build ”",
   /**
    * Decorative sweep of the countdown ring, in the same 0-max units the
-   * ProgressRing takes. Transcribed from the Figma arc (~42% of the circle);
-   * a live timer would derive this from the remaining seconds.
+   * ProgressRing takes. Measured off the export's arc: 131.8 degrees of a
+   * 360-degree circle = 36.6%. A live timer would derive this from the
+   * remaining seconds.
    */
-  ring: { value: 42, max: 100 },
+  ring: { value: 36.6, max: 100 },
 } as const;
 
 /* --- Today's Progress -----------------------------------------------------*/
@@ -105,14 +106,16 @@ export const tasksHeader = { title: "Today's Tasks", addLabel: "Add Todos" } as 
 export const weekChart: WeekChart = {
   ticks: [0, 2, 4, 6],
   max: 6,
+  /* Bar heights are baked into the Figma export (60/47/66/27/47/66/66 px on a
+     90px plot), so these are those pixel heights expressed as values of 6. */
   points: [
     { day: "Sun", value: 4 },
-    { day: "Mon", value: 3 },
-    { day: "Tue", value: 5 },
-    { day: "Wed", value: 1.5 },
-    { day: "Thu", value: 3 },
-    { day: "Fri", value: 5 },
-    { day: "Sat", value: 4.5 },
+    { day: "Mon", value: 3.13 },
+    { day: "Tue", value: 4.4 },
+    { day: "Wed", value: 1.8 },
+    { day: "Thu", value: 3.13 },
+    { day: "Fri", value: 4.4 },
+    { day: "Sat", value: 4.4 },
   ],
 };
 

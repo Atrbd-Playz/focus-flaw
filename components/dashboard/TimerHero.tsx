@@ -1,150 +1,82 @@
+"use client";
+
 import Image from "next/image";
-import {
-  PlayGlyphIcon,
-  RefreshIcon,
-  RedTomatoIllustration,
-  SlidersIcon,
-  TomatoIllustration,
-  TeaCupIllustration,
-  PlantIllustration,
-} from "@/components/icons";
 import { ProgressRing } from "@/components/ui/ProgressRing";
+import { ModeSelector } from "@/components/dashboard/timer/ModeSelector";
+import { TimerBadge } from "@/components/dashboard/timer/TimerBadge";
+import { TimerQuote } from "@/components/dashboard/timer/TimerQuote";
+import { TransportControls } from "@/components/dashboard/timer/TransportControls";
 import { timer, timerModes } from "@/lib/data";
 import type { TimerModeId } from "@/lib/types";
-import { cn } from "@/lib/cn";
+import { useState } from "react";
 
-/** Mode icon, keyed by the mode id. */
-const MODE_ICON: Record<TimerModeId, React.ComponentType<{ className?: string }>> = {
-  pomodoro: TomatoIllustration,
-  short: TeaCupIllustration,
-  long: PlantIllustration,
-};
+/* Ring geometry, in artboard pixels — the Figma ring is 13px thick on a
+   239px box, i.e. a centre-line radius of 113 and a stroke of 13. ProgressRing
+   takes viewBox units, so divide by 2.39. */
+const RING = { r: 47.28, strokeWidth: 5.44 } as const;
 
 /**
- * ============================================================================
- *  TimerHero — the centrepiece.
- * ----------------------------------------------------------------------------
- *  A photo-backed panel holding: mode badge · circular countdown · transport
- *  controls · the three timer modes · a decorative quote.
+ * TimerHero — the photographic countdown panel.
  *
- *  Responsive:
- *   - the photo is `object-cover`, so it crops instead of distorting (the
- *     Figma export stretched it to a fixed 818x467 box — fixed here)
- *   - the ring scales with `clamp()` from 150px to 216px, so the digits never
- *     overflow the arc on a phone
- *   - the quote is decorative and dropped below md
- *   - the mode selector wraps (`basis-[150px]`) rather than overflowing
- * ============================================================================
+ * Artboard (820x438, rx15): a full-bleed photo with the badge, a decorative
+ * quote, the 239px countdown ring, the transport row and the three-mode
+ * selector placed at their measured coordinates. Every one of those
+ * coordinates is an `artboard:*` class on the element itself, so they can be
+ * tweaked here without touching globals.css.
+ *
+ * Below the artboard breakpoint the same tree is a fluid flex column — no
+ * absolutely positioned child, so nothing overlaps on a phone.
  */
 export function TimerHero({ className }: { className?: string }) {
-  const activeMode = timerModes[0];
+  const [activeMode, setActiveMode] = useState<TimerModeId>("pomodoro");
+  const mode = timerModes.find((m) => m.id === activeMode) ?? timerModes[0];
 
   return (
     <section
       aria-label="Focus timer"
-      className={cn("relative isolate overflow-hidden rounded-card", className)}
+      className={`ff-hero relative isolate overflow-hidden rounded-panel artboard:h-[438px] artboard:w-[820px] ${className ?? ""}`}
     >
-      {/* Photographic backdrop — decorative, so alt is empty */}
+      {/* Photographic backdrop — decorative, so alt is empty.
+          The export anchors the 820x467 source to the top and lets the
+          bottom 29px fall outside the panel. */}
       <Image
         src="/SunlitCozyWorkspaceWithSleepingCat1.png"
         alt=""
         fill
         priority
-        sizes="(min-width: 1280px) 818px, 100vw"
-        className="absolute inset-0 -z-10 object-cover object-center"
+        unoptimized
+        sizes="(min-width: 1100px) 820px, 100vw"
+        className="absolute inset-0 -z-10 object-cover object-center artboard:object-top"
       />
 
-      <div className="flex flex-col items-center gap-3 px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
-        {/* Mode badge + quote */}
-        <div className="flex w-full items-start justify-between gap-3">
-          <span className="hairline inline-flex items-center gap-2 rounded-pill bg-surface px-3 py-2">
-            <RedTomatoIllustration className="size-4" />
-            <span className="text-sm font-medium text-ink">{timer.mode}</span>
-          </span>
+      <div className="ff-hero-body flex flex-col items-center gap-3 px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
+        <TimerBadge mode={mode.label} />
+        <TimerQuote quote={timer.quote} />
 
-          {/* Decorative — dropped where there is no room for it */}
-          <p className="hidden max-w-[14ch] text-right font-quote text-sm leading-snug text-graphite md:block">
-            {timer.quote}
-          </p>
-        </div>
-
-        {/* Countdown */}
+        {/* Countdown.
+            `cap="butt"` because the export's arc ends on a true radial edge,
+            and the track is the surface colour rather than the peach used by
+            the "4/7" ring — over the photograph it reads as translucent cream. */}
         <ProgressRing
           value={timer.ring.value}
           max={timer.ring.max}
-          strokeWidth={7}
+          r={RING.r}
+          strokeWidth={RING.strokeWidth}
+          trackClassName="stroke-surface"
           label={`${timer.display} ${timer.caption}`}
-          className="size-[clamp(150px,40vw,216px)]"
+          className="ff-ring size-[clamp(150px,40vw,239px)] artboard:absolute artboard:left-[291px] artboard:top-[25px] artboard:h-[239px] artboard:w-[239px]"
+          contentClassName="artboard:absolute artboard:inset-0 artboard:block"
         >
-          <div className="flex flex-col items-center px-6">
-            <p className="font-clock text-[clamp(2.25rem,8vw,3.5rem)] font-extralight leading-none text-ink">
-              {timer.display}
-            </p>
-            <p className="mt-2 text-sm text-ink sm:text-base">{timer.caption}</p>
-          </div>
+          <p className="ff-clock font-clock text-[clamp(2.25rem,8vw,3rem)] font-extralight leading-none text-ink artboard:absolute artboard:inset-x-0 artboard:top-[92px] artboard:text-[48px] artboard:leading-none">
+            {timer.display}
+          </p>
+          <p className="ff-caption mt-2 text-sm leading-none text-ink sm:text-base artboard:absolute artboard:inset-x-0 artboard:top-[146px] artboard:mt-0 artboard:text-[15px] artboard:leading-none">
+            {timer.caption}
+          </p>
         </ProgressRing>
 
-        {/* Transport controls */}
-        <div className="flex items-center gap-4 sm:gap-6">
-          <button
-            type="button"
-            aria-label="Reset timer"
-            className="hairline grid size-10 place-items-center rounded-pill bg-surface text-graphite transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-accent sm:size-11"
-          >
-            <RefreshIcon className="size-4" />
-          </button>
-
-          <button
-            type="button"
-            aria-label="Start focus timer"
-            className="grid size-14 place-items-center rounded-pill bg-graphite transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-accent sm:size-[54px]"
-          >
-            <PlayGlyphIcon className="size-5 sm:size-6" />
-          </button>
-
-          <button
-            type="button"
-            aria-label="Timer settings"
-            className="hairline grid size-10 place-items-center rounded-pill bg-surface text-graphite transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-accent sm:size-11"
-          >
-            <SlidersIcon className="size-4" />
-          </button>
-        </div>
-
-        {/* Mode selector */}
-        <div
-          role="tablist"
-          aria-label="Timer mode"
-          className="hairline flex w-full max-w-[576px] flex-wrap justify-center gap-1 rounded-card bg-surface p-1.5 sm:gap-2 sm:p-2"
-        >
-          {timerModes.map((mode) => {
-            const Icon = MODE_ICON[mode.id];
-            const selected = mode.id === activeMode.id;
-            return (
-              <button
-                key={mode.id}
-                role="tab"
-                aria-selected={selected}
-                type="button"
-                className={cn(
-                  "flex min-h-11 min-w-0 flex-1 basis-[140px] items-center justify-center gap-2.5 rounded-panel px-3 py-2 transition-colors",
-                  "focus-visible:outline-2 focus-visible:outline-accent",
-                  selected
-                    ? "border border-accent bg-accent-soft"
-                    : "border border-transparent hover:bg-surface-raised",
-                )}
-              >
-                <Icon className="size-7 shrink-0" />
-                <span className="flex min-w-0 flex-col items-start leading-tight">
-                  <span className="truncate text-sm font-medium text-ink">{mode.label}</span>
-                  <span className="font-micro text-micro text-muted opacity-70">
-                    {mode.duration}
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
+        <TransportControls />
+        <ModeSelector activeId={activeMode} onSelect={setActiveMode} />
       </div>
     </section>
   );

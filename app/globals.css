@@ -19,16 +19,24 @@
      The design uses 7 near-identical creams. They are consolidated here into
      5 intentional roles so the palette stays legible and themable.          */
   --color-canvas: #fcf9f4; /* page background                    */
-  --color-surface: #fdf9f4; /* default card surface               */
+  --color-surface: #fdf9f4; /* default card: header, progress, QA */
   --color-surface-alt: #f8f6ef; /* secondary panels (chart, music)   */
-  --color-surface-raised: #fbfaf7; /* list rows, inset chips           */
+  --color-surface-raised: #fbfaf7; /* tasks panel, inset chips         */
+  --color-surface-nav: #f8f6f0; /* left navigation rail              */
+  --color-row: #f7f6f3; /* task rows                          */
+  --color-row-quiet: #f4f0eb; /* quick-action rows                  */
+  --color-btn-quiet: #f2f1ee; /* secondary button fill              */
   --color-nav-active: #f9f0de; /* active sidebar pill               */
-  --color-canvas-aside: #fcf8f4; /* right-rail band                   */
+  --color-mode-active: #fdeede; /* selected timer mode               */
+  --color-mode-line: #e9916c; /* selected mode outline (1.5px)     */
+  --color-quote: #5f5b53; /* decorative hero quote               */
 
   /* --- Lines ---------------------------------------------------------------
      One hairline token replaces the 5 competing greys found in the export.  */
   --color-line: rgb(98 99 104 / 0.6); /* 0.25px card border = muted @ 60% */
   --color-line-soft: rgb(98 99 104 / 0.35); /* dividers inside cards          */
+  --color-grid: #ebe9e3; /* chart top rule (muted @ ~9%)    */
+  --color-grid-base: #f4f2eb; /* chart baseline (muted @ ~3%)    */
 
   /* --- Text ----------------------------------------------------------------*/
   --color-ink: #272b2a; /* headings, primary numbers           */

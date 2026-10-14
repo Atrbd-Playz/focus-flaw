@@ -30,6 +30,7 @@ const OUT_DIR = join(process.cwd(), "components/icons");
 const PALETTE: Record<string, string> = {
   // monochrome UI icons -> inherit surrounding text color
   "#626368": "currentColor", // --color-muted
+  "#6c6c71": "currentColor", // --color-muted (fill-based timer icon)
   "#41444c": "currentColor", // --color-graphite
   "#272b2a": "currentColor", // --color-ink
 
@@ -131,6 +132,29 @@ const LENGTH_ATTRS = new Set([
 
 const COLOR_RE = /(#[0-9a-fA-F]{3,8}\b|rgba?\([^)]*\))/;
 const HEX_RE = /#[0-9a-fA-F]{3,8}\b/g;
+
+/**
+ * Paint attributes carried from the source root <svg> onto the generated one.
+ *
+ * Most Figma assets set fill/stroke per shape, but icon-library exports
+ * (`lucide`, `feather`, ...) set them once on the root <svg> and let them
+ * inherit. The root tag is discarded below and replaced by a fixed template,
+ * so those attributes have to be re-emitted or the icon comes out unpainted
+ * and invisible - see docs/STYLEGUIDE.md § Bugs fixed.
+ *
+ * `fill` is absent here because the generated template already declares one,
+ * so it would collide. It is resolved separately by `rootFill` instead.
+ */
+const ROOT_PAINT_ATTRS: Record<string, string> = {
+  stroke: "stroke",
+  "stroke-width": "strokeWidth",
+  "stroke-linecap": "strokeLinecap",
+  "stroke-linejoin": "strokeLinejoin",
+  "stroke-opacity": "strokeOpacity",
+  "stroke-dasharray": "strokeDasharray",
+  "fill-rule": "fillRule",
+  "clip-rule": "clipRule",
+};
 
 /**
  * Paths to drop entirely, per source file.
@@ -236,6 +260,43 @@ function processTag(tag: string, rules: Record<string, Record<string, string>>, 
   return tag;
 }
 
+/**
+ * Paint attributes lifted off the source root <svg> tag, tokenized and
+ * camelCased ready for JSX. Returns "" when the asset styles each shape
+ * itself, so the generated root stays exactly as it was before.
+ */
+function rootPaintAttrs(openTag: string, file: string, missing: Set<string>): string {
+  const attrs: string[] = [];
+
+  for (const m of openTag.matchAll(/([A-Za-z_:][\w:.-]*)="([^"]*)"/g)) {
+    const [, rawName, rawValue] = m;
+    const name = ROOT_PAINT_ATTRS[rawName];
+    if (!name) continue;
+
+    let value = rawValue;
+    if (COLOR_RE.test(value)) value = tokenizeValue(value, file, missing);
+    if (LENGTH_ATTRS.has(name)) value = value.replace(/px/g, "").trim();
+    attrs.push(`${name}="${value}"`);
+  }
+
+  return attrs.length ? ` ${attrs.join(" ")}` : "";
+}
+
+/**
+ * The `fill` the generated root should declare.
+ *
+ * Figma sets fill per shape, so the root is `none` and shapes state their
+ * own. Icon-library exports invert that: the root carries the fill and the
+ * shapes inherit it. Honour whichever the source expresses, tokenized like
+ * any other color - dropping the source value would render the icon
+ * invisible (fill:none on a fill-based icon paints nothing at all).
+ */
+function rootFill(openTag: string, file: string, missing: Set<string>): string {
+  const raw = openTag.match(/\bfill="([^"]*)"/)?.[1];
+  if (!raw) return "none";
+  return tokenizeValue(raw, file, missing);
+}
+
 function build() {
   mkdirSync(OUT_DIR, { recursive: true });
   const files = readdirSync(ASSETS).filter((f) => f.toLowerCase().endsWith(".svg"));
@@ -253,7 +314,10 @@ function build() {
     let svg = readFileSync(join(ASSETS, file), "utf8");
     const rules = parseClassRules(svg);
 
-    const viewBox = svg.match(/viewBox="([^"]+)"/)?.[1] ?? "0 0 24 24";
+    const openTag = svg.match(/<svg[^>]*>/)?.[0] ?? "";
+    const viewBox = openTag.match(/viewBox="([^"]+)"/)?.[1] ?? "0 0 24 24";
+    const fill = rootFill(openTag, file, missing);
+    const rootAttrs = rootPaintAttrs(openTag, file, missing);
 
     // drop the Figma <defs><style> block (rules are inlined per element) and XML prolog
     svg = svg.replace(/<defs>[\s\S]*?<\/defs>/g, "");
@@ -283,7 +347,7 @@ function build() {
  */
 export function ${componentName}(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="${viewBox}" fill="none" aria-hidden="true" focusable="false" {...props}>
+    <svg viewBox="${viewBox}" fill="${fill}"${rootAttrs} aria-hidden="true" focusable="false" {...props}>
 ${body}
     </svg>
   );

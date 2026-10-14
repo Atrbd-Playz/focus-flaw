@@ -19,7 +19,7 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("flex items-center justify-between gap-3", className)}>
+    <div className={cn("ff-secheader flex items-center justify-between gap-3", className)}>
       <h2 className="min-w-0 truncate text-md font-medium text-ink">{title}</h2>
       {trailing ? <div className="shrink-0 text-sm text-muted">{trailing}</div> : null}
     </div>

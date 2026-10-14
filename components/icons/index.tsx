@@ -623,14 +623,8 @@ export function CheckboxOutlineSmallIcon(props: SVGProps<SVGSVGElement>) {
  */
 export function TimerIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 15.67 19.33" fill="none" aria-hidden="true" focusable="false" {...props}>
-      <g>
-      <g>
-      <path  fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M6,.5h3.67"/>
-      <path  fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M7.83,11.5l2.75-2.75"/>
-      <path  fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M7.83,18.83c4.05,0,7.33-3.28,7.33-7.33s-3.28-7.33-7.33-7.33S.5,7.45,.5,11.5s3.28,7.33,7.33,7.33Z"/>
-      </g>
-      </g>
+    <svg viewBox="2 2 20 20" fill="currentColor" aria-hidden="true" focusable="false" {...props}>
+      <path d="m19.07,4.93c-.92-.92-1.99-1.64-3.18-2.14-1.23-.52-2.54-.79-3.89-.79-.55,0-1,.45-1,1v5h2v-3.94c.73.09,1.44.28,2.11.57.95.4,1.81.98,2.54,1.72.74.73,1.31,1.59,1.71,2.54.42.99.63,2.03.63,3.11s-.21,2.13-.63,3.11c-.4.95-.98,1.81-1.72,2.54-.73.74-1.59,1.31-2.54,1.71-1.97.83-4.26.83-6.23,0-.95-.4-1.81-.98-2.54-1.72-.74-.73-1.31-1.59-1.71-2.54-.42-.99-.63-2.03-.63-3.11s.21-2.13.63-3.11c.4-.95.98-1.81,1.72-2.54l-1.41-1.42c-.92.92-1.64,1.99-2.14,3.18-.52,1.23-.79,2.54-.79,3.89s.26,2.66.79,3.89c.5,1.19,1.23,2.26,2.14,3.18s1.99,1.64,3.18,2.14c1.23.52,2.54.79,3.89.79s2.66-.26,3.89-.79c1.19-.5,2.26-1.23,3.18-2.14s1.64-1.99,2.14-3.18c.52-1.23.79-2.54.79-3.89s-.26-2.66-.79-3.89c-.5-1.19-1.23-2.26-2.14-3.18Z"></path><path d="m12.88,11.12l-4.88-3.12,3.12,4.88c1.22,1.68,3.45-.55,1.77-1.77Z"></path>
     </svg>
   );
 }
